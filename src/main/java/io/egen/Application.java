@@ -32,24 +32,23 @@ public class Application {
 
     @PostConstruct
     public void loadUsers() {
+        User user1 = new User();
+        user1.setFirstName("Bruce");
+        user1.setLastName("Wayne");
+        user1.setEmail("batman@wayneenterprises.com");
+        Map<String, Object> user1Map = new HashMap<>();
+        user1Map.put("state", "NY");
+        user1.setAddress(user1Map);
 
-        User rock = new User();
-        rock.setFirstName("Dwayne");
-        rock.setLastName("JohnSon");
-        rock.setEmail("rock@WorldWideWrrestling.com");
-        Map<String, Object> rockMap = new HashMap<>();
-        rockMap.put("myadress", "WWF");
-        rock.setAddress(rockMap);
+        User user2 = new User();
+        user2.setFirstName("Clark");
+        user2.setLastName("Kent");
+        user2.setEmail("superman@kryptonian.com");
+        Map<String, Object> user2Map = new HashMap<>();
+        user2Map.put("state", "IL");
+        user2.setAddress(user2Map);
 
-        User obama = new User();
-        obama.setFirstName("Barack");
-        obama.setLastName("Hussein Obama");
-        obama.setEmail("obama@YourPresident.com");
-        Map<String, Object> obmamaMap = new HashMap<>();
-        obmamaMap.put("myadress", "White House");
-        obama.setAddress(obmamaMap);
-
-        userCache.update(rock);
-        userCache.update(obama);
+        userCache.create(user1);
+        userCache.create(user2);
     }
 }

@@ -48,12 +48,14 @@
     </dependencies>
 
     <build>
+        <finalName>aws-bootcamp-spring</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
+                    <mainClass>io.egen.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

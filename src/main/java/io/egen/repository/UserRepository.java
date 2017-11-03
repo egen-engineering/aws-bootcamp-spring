@@ -1,5 +1,6 @@
 package io.egen.repository;
 
+import io.egen.NotFoundException;
 import io.egen.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -14,10 +15,6 @@ public class UserRepository {
 
     private Set<User> userCache = new HashSet<>();
 
-    public boolean hasUser(User user) {
-        return userCache.contains(user);
-    }
-
     public User findById(String userId) {
         Optional<User> userOptional = userCache.stream()
                                                .filter(user -> user.getId()
@@ -28,22 +25,25 @@ public class UserRepository {
             return userOptional.get();
         }
 
-        throw new RuntimeException("User not found");
+        throw new NotFoundException("User not found");
     }
 
-    public boolean update(User user) {
-        return userCache.add(user);
+    public User create(User user) {
+        userCache.add(user);
+        return user;
     }
 
-    public boolean remove(String userId) {
+    public User update(String userId, User user) {
+        User existing = findById(userId);
+        userCache.remove(existing);
+        userCache.add(user);
+        return user;
+    }
 
-        Optional<User> userOptional = userCache.stream()
-                                               .filter(user -> user.getId()
-                                                                   .equals(userId))
-                                               .findFirst();
-
-        return userOptional.filter(user -> userCache.remove(user))
-                           .isPresent();
+    public User remove(String userId) {
+        User existing = findById(userId);
+        userCache.remove(existing);
+        return existing;
     }
 
     public List<User> findAll() {
